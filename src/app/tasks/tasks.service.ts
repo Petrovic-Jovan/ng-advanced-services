@@ -5,7 +5,14 @@ import { Task } from './task.model';
   providedIn: 'root',
 })
 export class TasksService {
-  tasks = signal<Task[]>([]);
+  /**
+   * It is common practice not to expose the writable signal directly, but to create a read-only version of it and expose that instead.
+   * This way, we can ensure that the state can only be modified through the methods provided by the service,
+   * and not directly from outside the service.
+   */
+  private tasks = signal<Task[]>([]);
+
+  allTasks = this.tasks.asReadonly();
 
   addTask(taskData: { title: string; description: string }) {
     const newTask: Task = {

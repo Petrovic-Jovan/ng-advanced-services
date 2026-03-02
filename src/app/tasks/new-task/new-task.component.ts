@@ -12,6 +12,11 @@ import { TasksService } from '../tasks.service';
 export class NewTaskComponent {
   private formEl = viewChild<ElementRef<HTMLFormElement>>('form');
 
+  /* We inject the TasksService to be able to call the addTask method when the form is submitted
+   The difference between private and public is that private means that the property can only be
+   accessed within the class, while public means that it can be accessed from outside the class as well.
+   In this case, we only need to access the tasksService from within the class, so we can make it private.
+  */
   constructor(private tasksService: TasksService) {}
 
   onAddTask(title: string, description: string) {
